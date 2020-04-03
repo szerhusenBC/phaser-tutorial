@@ -29,6 +29,9 @@ export class HelloWorldScene extends Phaser.Scene {
     private player: Phaser.Physics.Arcade.Sprite | undefined;
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
     private stars: Phaser.Physics.Arcade.Group | undefined;
+    private scoreText: Phaser.GameObjects.Text | undefined;
+
+    private score: number = 0;
 
     constructor() {
         super(sceneConfig);
@@ -48,6 +51,8 @@ export class HelloWorldScene extends Phaser.Scene {
 
     public create() {
         this.add.image(400, 300, key.image.sky);
+
+        this.scoreText = this.createScoreText();
 
         this.platforms = this.createPlatforms();
         this.stars = this.createStars();
@@ -131,7 +136,14 @@ export class HelloWorldScene extends Phaser.Scene {
         return stars;
     }
 
-    private onPlayerOverlapsStar(player: any, star: any) {
+    private createScoreText(): Phaser.GameObjects.Text {
+        return this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    }
+
+    private onPlayerOverlapsStar(_: any, star: any) {
         star.disableBody(true, true);
+
+        this.score += 10;
+        this.scoreText.setText('Score: ' + this.score);
     }
 }
