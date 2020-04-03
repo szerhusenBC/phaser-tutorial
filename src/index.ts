@@ -1,25 +1,25 @@
-import * as Phaser from 'phaser';
 import {HelloWorldScene} from "./scenes/HelloWorldScene";
 
 const gameConfig: Phaser.Types.Core.GameConfig = {
-    title: 'Sample',
+    title: "Sample",
 
     type: Phaser.AUTO,
 
     scale: {
-        width: window.innerWidth,
-        height: window.innerHeight
+        width: 800,
+        height: 600
     },
 
     physics: {
-        default: 'arcade',
+        default: "arcade",
         arcade: {
             debug: true,
+            gravity: {y: 200}
         }
     },
 
-    parent: 'game',
-    backgroundColor: '#000000',
+    parent: "game",
+    backgroundColor: "#000000",
 
     scene: HelloWorldScene
 };
