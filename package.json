@@ -1,0 +1,39 @@
+{
+  "name": "phaser-tutorial",
+  "version": "1.0.0",
+  "description": "Just a repo for learning the Phaser game engine",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build-prod": "parcel build src/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/szerhusenBC/phaser-tutorial.git"
+  },
+  "keywords": [],
+  "author": "Stephan Zerhusen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/szerhusenBC/phaser-tutorial/issues"
+  },
+  "homepage": "https://github.com/szerhusenBC/phaser-tutorial#readme",
+  "devDependencies": {
+    "minimist": "^1.2.5",
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-clean-easy": "^1.0.2",
+    "parcel-plugin-static-files-copy": "^2.3.1",
+    "typescript": "^3.8.3"
+  },
+  "parcelCleanPaths": [
+    "dist"
+  ],
+  "staticFiles": {
+    "staticPath": "public",
+    "watcherGlob": "**"
+  },
+  "dependencies": {
+    "phaser": "^3.22.0"
+  }
+}
