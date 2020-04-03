@@ -49,6 +49,8 @@ export class HelloWorldScene extends Phaser.Scene {
 
         this.platforms = this.createPlatforms();
         this.player = this.createPlayer();
+
+        this.physics.add.collider(this.player, this.platforms);
     }
 
     public update() {
