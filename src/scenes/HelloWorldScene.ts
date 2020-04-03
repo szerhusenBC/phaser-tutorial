@@ -47,26 +47,28 @@ export class HelloWorldScene extends Phaser.Scene {
     public create() {
         this.add.image(400, 300, key.image.sky);
 
-        this.createPlatforms();
-        this.createPlayer();
+        this.platforms = this.createPlatforms();
+        this.player = this.createPlayer();
     }
 
     public update() {
         // TODO
     }
 
-    private createPlatforms() {
-        this.platforms = this.physics.add.staticGroup();
-        this.platforms.create(400, 568, key.image.ground).setScale(2).refreshBody(); // level ground platform
-        this.platforms.create(600, 400, key.image.ground);
-        this.platforms.create(50, 250, key.image.ground);
-        this.platforms.create(750, 220, key.image.ground);
+    private createPlatforms(): Phaser.Physics.Arcade.StaticGroup {
+        const platforms = this.physics.add.staticGroup();
+        platforms.create(400, 568, key.image.ground).setScale(2).refreshBody(); // level ground platform
+        platforms.create(600, 400, key.image.ground);
+        platforms.create(50, 250, key.image.ground);
+        platforms.create(750, 220, key.image.ground);
+
+        return platforms;
     }
 
-    private createPlayer() {
-        this.player = this.physics.add.sprite(100, 450, key.spritesheet.dude);
-        this.player.setBounce(0.2);
-        this.player.setCollideWorldBounds(true);
+    private createPlayer(): Phaser.Physics.Arcade.Sprite {
+        const player = this.physics.add.sprite(100, 450, key.spritesheet.dude);
+        player.setBounce(0.2);
+        player.setCollideWorldBounds(true);
 
         this.anims.create({
             key: key.anim.left,
@@ -87,5 +89,7 @@ export class HelloWorldScene extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });
+
+        return player;
     }
 }
