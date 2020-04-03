@@ -28,6 +28,7 @@ export class HelloWorldScene extends Phaser.Scene {
     private platforms: Phaser.Physics.Arcade.StaticGroup | undefined;
     private player: Phaser.Physics.Arcade.Sprite | undefined;
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
+    private stars: Phaser.Physics.Arcade.Group | undefined;
 
     constructor() {
         super(sceneConfig);
@@ -49,9 +50,13 @@ export class HelloWorldScene extends Phaser.Scene {
         this.add.image(400, 300, key.image.sky);
 
         this.platforms = this.createPlatforms();
+        this.stars = this.createStars();
         this.player = this.createPlayer();
 
+        this.physics.add.collider(this.stars, this.platforms);
         this.physics.add.collider(this.player, this.platforms);
+
+        this.physics.add.overlap(this.player, this.stars, (player: any, star: any) => star.disableBody(true, true), undefined, this);
 
         this.cursors = this.input.keyboard.createCursorKeys();
     }
@@ -112,5 +117,17 @@ export class HelloWorldScene extends Phaser.Scene {
         });
 
         return player;
+    }
+
+    private createStars(): Phaser.Physics.Arcade.Group {
+        const stars = this.physics.add.group({
+            key: key.image.star,
+            repeat: 11,
+            setXY: {x: 12, y: 0, stepX: 70}
+        });
+
+        stars.children.iterate((child: any) => child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8)));
+
+        return stars;
     }
 }
