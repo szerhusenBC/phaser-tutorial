@@ -25,11 +25,11 @@ const key = {
 
 export class HelloWorldScene extends Phaser.Scene {
 
-    private platforms: Phaser.Physics.Arcade.StaticGroup | undefined;
-    private player: Phaser.Physics.Arcade.Sprite | undefined;
-    private cursors: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
-    private stars: Phaser.Physics.Arcade.Group | undefined;
-    private scoreText: Phaser.GameObjects.Text | undefined;
+    private platforms: Phaser.Physics.Arcade.StaticGroup;
+    private player: Phaser.Physics.Arcade.Sprite;
+    private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
+    private stars: Phaser.Physics.Arcade.Group;
+    private scoreText: Phaser.GameObjects.Text;
 
     private score: number = 0;
 
