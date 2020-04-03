@@ -56,7 +56,7 @@ export class HelloWorldScene extends Phaser.Scene {
         this.physics.add.collider(this.stars, this.platforms);
         this.physics.add.collider(this.player, this.platforms);
 
-        this.physics.add.overlap(this.player, this.stars, (player: any, star: any) => star.disableBody(true, true), undefined, this);
+        this.physics.add.overlap(this.player, this.stars, this.onPlayerOverlapsStar, undefined, this);
 
         this.cursors = this.input.keyboard.createCursorKeys();
     }
@@ -129,5 +129,9 @@ export class HelloWorldScene extends Phaser.Scene {
         stars.children.iterate((child: any) => child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8)));
 
         return stars;
+    }
+
+    private onPlayerOverlapsStar(player: any, star: any) {
+        star.disableBody(true, true);
     }
 }
