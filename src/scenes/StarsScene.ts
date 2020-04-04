@@ -1,29 +1,13 @@
 import * as Phaser from "phaser";
+import {key} from "./keys";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
     active: false,
     visible: false,
-    key: "HelloWorld",
+    key: key.scene.stars,
 };
 
-const key = {
-    image: {
-        sky: "sky",
-        ground: "ground",
-        star: "star",
-        bomb: "bomb"
-    },
-    spritesheet: {
-        dude: "dude"
-    },
-    anim: {
-        left: "left",
-        turn: "turn",
-        right: "right"
-    }
-};
-
-export class HelloWorldScene extends Phaser.Scene {
+export class StarsScene extends Phaser.Scene {
 
     private platforms: Phaser.Physics.Arcade.StaticGroup;
     private player: Phaser.Physics.Arcade.Sprite;

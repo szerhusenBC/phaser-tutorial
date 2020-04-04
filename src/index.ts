@@ -1,4 +1,4 @@
-import {HelloWorldScene} from "./scenes/HelloWorldScene";
+import {StarsScene} from "./scenes/StarsScene";
 
 const gameConfig: Phaser.Types.Core.GameConfig = {
     title: "Sample",
@@ -21,7 +21,7 @@ const gameConfig: Phaser.Types.Core.GameConfig = {
     parent: "game",
     backgroundColor: "#000000",
 
-    scene: HelloWorldScene
+    scene: StarsScene
 };
 
 export const game = new Phaser.Game(gameConfig);
