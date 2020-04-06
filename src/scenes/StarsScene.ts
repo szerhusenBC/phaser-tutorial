@@ -13,6 +13,7 @@ export class StarsScene extends Phaser.Scene {
     private player: Phaser.Physics.Arcade.Sprite;
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
     private stars: Phaser.Physics.Arcade.Group;
+    private bombs: Phaser.Physics.Arcade.Group;
     private scoreText: Phaser.GameObjects.Text;
 
     private score: number = 0;
@@ -41,9 +42,13 @@ export class StarsScene extends Phaser.Scene {
         this.platforms = this.createPlatforms();
         this.stars = this.createStars();
         this.player = this.createPlayer();
+        this.bombs = this.physics.add.group();
 
-        this.physics.add.collider(this.stars, this.platforms);
         this.physics.add.collider(this.player, this.platforms);
+        this.physics.add.collider(this.stars, this.platforms);
+        this.physics.add.collider(this.bombs, this.platforms);
+
+        this.physics.add.collider(this.player, this.bombs, this.onPlayerHitsBomb, null, this);
 
         this.physics.add.overlap(this.player, this.stars, this.onPlayerOverlapsStar, undefined, this);
 
@@ -115,13 +120,13 @@ export class StarsScene extends Phaser.Scene {
             setXY: {x: 12, y: 0, stepX: 70}
         });
 
-        stars.children.iterate((child: any) => child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8)));
+        stars.children.iterate((star: any) => star.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8)));
 
         return stars;
     }
 
     private createScoreText(): Phaser.GameObjects.Text {
-        return this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+        return this.add.text(16, 16, 'score: 0', {fontSize: '32px', fill: '#000'});
     }
 
     private onPlayerOverlapsStar(_: any, star: any) {
@@ -129,5 +134,33 @@ export class StarsScene extends Phaser.Scene {
 
         this.score += 10;
         this.scoreText.setText('Score: ' + this.score);
+
+        if (this.stars.countActive(true) === 0) {
+            this.respawnStars();
+        }
+
+        this.spawnBomb();
+    }
+
+    private respawnStars() {
+        this.stars.children.iterate((star: any) => star.enableBody(true, star.x, 0, true, true));
+    }
+
+    private spawnBomb() {
+        const x = (this.player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+        const bomb = this.bombs.create(x, 16, key.image.bomb);
+        bomb.setBounce(1);
+        bomb.setCollideWorldBounds(true);
+        bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+    }
+
+    private onPlayerHitsBomb() {
+        this.physics.pause();
+
+        this.player.setTint(0xff0000);
+
+        this.player.anims.play(key.anim.turn);
+
+        // gameOver = true;
     }
 }
