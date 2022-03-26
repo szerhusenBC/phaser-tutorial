@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/szerhusenBC/phaser-tutorial#readme",
   "devDependencies": {
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.6",
     "parcel-bundler": "^1.12.5",
     "parcel-plugin-clean-easy": "^1.0.2",
     "parcel-plugin-static-files-copy": "^2.6.0",
